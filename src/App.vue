@@ -2,24 +2,26 @@
     <div class="container">
         <div class="d-flex justify-content-center align-items-center vh-100 text-center">
 
-            <form @submit.prevent="get">
-                <p>v1.0.1</p>
-                <h3>Найдите любые цитаты именно здесь! <br> Введите любое слово, которое относится к цитате, и вы увидите все варианты ! </h3>
-                <input type="text" class="form-control" v-model="data" style="margin: auto;"> <br>
-                <button type="submit" class="btn btn-success">Найти</button> <br>
-                <div class="alert alert-danger" style="margin-top: 10px;" v-if="this.some === 't'"> 
-                    К сожелению, цитат с таким словом / символом  не найдено 
-                </div>
-            </form>
+            <div class="alert alert-dark">
+                <form @submit.prevent="get">
+                    <p>v1.1.0</p>
+                    <h3>Найдите любые цитаты именно здесь! <br> Введите любое слово, которое относится к цитате, и вы увидите все варианты ! </h3>
+                    <input type="text" class="form-control" v-model="data" style="margin: auto;" @input="get"> <br>
+                    <!--<button type="submit" class="btn btn-success">Найти</button>--> <br>
+                    <div class="alert alert-danger" style="margin-top: 10px;" v-if="this.some === 't'"> 
+                        К сожелению, цитат с таким словом / символом  не найдено 
+                    </div>
+                </form>
 
-             <div v-if="foundQuotes.length > 0" style="max-height: 60vh; overflow-y: auto">
-                <h4>Найденные цитаты:</h4>
-                <div >
-                    <ol>
-                        <li v-for="(quote, index) in foundQuotes" :key="index" class="quote-item">
-                            {{ quote }}
-                        </li>
-                    </ol>
+                <div v-if="foundQuotes.length > 0" style="max-height: 60vh;margin-top: 10px; overflow-y: auto">
+                    <h4>Найденные цитаты:</h4>
+                    <div >
+                        <ol>
+                            <li v-for="(quote, index) in foundQuotes" :key="index" class="quote-item">
+                                {{ quote }}
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
 
@@ -31,6 +33,7 @@
 
 <script>
 import footVue from './components/foot.vue';
+
 
 export default {
     components: { footVue },
@@ -48,12 +51,12 @@ export default {
                 "Жизнь состоит из моментов, не ждите их, создавайте.",
                 "Чтобы стать необычным, вам нужно сделать нечто необычное.",
                 "Трудности - это те вещи, которые вы видите, когда вы забыли свою цель.",
-                "Жизнь прекрасна и разнообразна.",
+                
                 "Будьте собой, остальные места уже заняты.",
                 "Будьте изменением, которое вы хотите увидеть в мире.",
                 "Верьте в себя, и вы сможете достичь чего угодно.",
                 "Лучший способ предсказать будущее - это создать его.",
-                "Успех - это не ключ к счастью. Счастье - это ключ к успеху.",
+                
                 "Чтобы добиться успеха, ваше желание на успех должно быть больше, чем ваше страхи от неудачи.",
                 "Жизнь состоит из моментов, не ждите их, создавайте.",
                 "Чтобы стать необычным, вам нужно сделать нечто необычное.",
@@ -122,6 +125,7 @@ export default {
                 "Не бойтесь быть уязвимыми. В уязвимости заключена сила.",
                 "Пусть ваше присутствие в мире будет светом, освещающим темные уголки.",
                 "Живите жизнью, на которую вы гордитесь.",
+                "2024 MAX | if you love this site , go to https://chatmax-0gfc.onrender.com/",
                 "Будьте спокойными в душе. В этом кроется сила.",
                 "Не принимайте жизнь слишком серьезно. Возможно, это просто игра.",
                 "Будьте терпеливыми и благодарными. Хорошие вещи приходят к тем, кто ждет их.",
@@ -321,6 +325,13 @@ export default {
                 "Лохи учатся на своих ошибках, мудрые учатся на ошибках других.",
                 "Будьте осторожны, когда кажется, что вы выиграли, а на самом деле, это может быть ловушка для лохов.",
                 "Лохи считают, что у них все под контролем, пока не попадают в беду.",
+                 "Природа не торопится, и всё у неё получается. ",
+                "Слушай природу и тогда все звуки говорят с тобой. ",
+                "Горы зовут, и я должен идти. ",
+                "Природа – это искусство бога.",
+                "Жить — значит рисовать без ластика.",
+                "Лесные тропы не носят следов, но приносят счастье.",
+                "Душа человека, подобно зеркалу, отражает тайны природы. "
             ],
             foundQuotes: [],
             some: 'f'
@@ -334,10 +345,16 @@ export default {
             this.words.forEach(word => {
                 if (regexp.test(word)) {
                     this.foundQuotes.push(word);
-                    this.some = 'f';
-                } else {
+                    //this.some = 'f';
+                } //else {
+                   // this.some = 't';
+                //}
+                if (this.foundQuotes.length <= 1) {
                     this.some = 't';
+                }else{
+                    this.some = 'f';
                 }
+
             });
         }
     }
